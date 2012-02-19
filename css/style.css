@@ -1,0 +1,82 @@
+/**
+*	@author		Jasal Vadgama - http://www.blacklabelcreative.com/
+*	@version	0.1
+*	@media		screen
+*
+*	@info		Featured Content/Hero Player
+**/
+
+body {
+	padding: 20px;
+	font-family: Georgia, Times, "Times New Roman", serif;
+	font-size: 14px;
+	line-height: 1.2em;
+}
+h1, h2, h3 {
+	padding-bottom: 20px;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	line-height: 1em;
+}
+h2 {
+	font-size: 18px;
+}
+h3 {
+	padding-bottom: 10px;
+	font-size: 16px;
+}
+
+/**
+* Default Hero Styles
+*/
+.heroPlayer {
+	position: relative;
+	width: 500px;
+	overflow: hidden;
+}
+.heroPlayer li {
+	float: left;
+	width: 500px;
+	list-style: none;
+}
+
+/**
+* JS On Styles
+*/
+.heroMask {
+	overflow: hidden;
+}
+a.arrowPrev, a.arrowNext {
+	display: none;
+	position: absolute;
+	top: 50%;
+	margin-top: -25px;
+	width: 50px;
+	height: 50px;
+	background: rgba(255, 255, 255, 0.5);
+	border: 1px solid transparent;
+	text-indent: -999em;
+}
+a.arrowPrev {
+	left: 0;
+	border-radius: 0 10px 10px 0;
+}
+a.arrowNext {
+	right: 0;
+	border-radius: 10px 0 0 10px;
+}
+.directNav {
+	float: right;
+	padding-top: 10px;
+}
+.directNav a {
+	float: left;
+	margin-left: 10px;
+	width: 20px;
+	height: 20px;
+	background: rgba(0, 0, 0, 0.7);
+	text-indent: -999em;
+}
+.directNav a:hover, .directNav a:focus, .directNav .active {
+	background: #000;
+}
