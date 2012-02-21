@@ -19,6 +19,15 @@ Changelog
 - Adding initial merged code to the project
 - Basic jQuery plugin layout
 
+### 0.2
+- Removing double jQuery selection
+- Reducing DOM manipulation
+- Reducing DOM lookups
+- Adding .stop() to hide/show of previous and next animations
+- Changing event syntax
+- Changing string syntax
+- Small jsLint fix
+
 License
 ---------------------
 
