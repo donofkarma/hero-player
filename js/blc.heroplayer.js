@@ -1,7 +1,7 @@
 /**
 * Featured Content/Hero Player
 *
-* @version	0.2
+* @version	0.3
 * @author	Jasal Vadgama - http://blacklabelcreative.com/
 * @require	jQuery - http://jquery.com/
 *			jQuery Easing 1.3 - http://gsgd.co.uk/sandbox/jquery/easing/
@@ -11,13 +11,19 @@
 (function($){
 	$.fn.hero = function(settings) {
 		var config = {
+			// SETTINGS
 			animateSpeed: 1000,				// speed of each transition (ms)
 			autoScroll: false,				// turn on auto scroll
 			circular: false,				// moves list item around
 			easing: 'easeInOutCubic',		// define the type of easing
+			hiddenControlsOpacity: 0,		// opacity of the controls when hidden
 			scrollInterval: 5000,			// time between scrolls (ms)
 			showControls: true,				// show controls on the main items
-			showNav: false					// show the quick nav menu for the main items
+			showNav: false,					// show the quick nav menu for the main items
+
+			// CALLBACKS
+			beforeAnimate: '',				// function to call before animation
+			onComplete: ''				// function to call after animation completion
 		};
 
 		var vars = {
@@ -26,7 +32,9 @@
 			itemCount: 0,					// total number of items in the player
 			itemWidth: 0,					// width of one hero item
 			offset: 0,						// the current margin-left for non-circular players
-			totalItemWidth: 0				// total width of items
+			totalItemWidth: 0,				// total width of items
+			isBeforeAnimate: false,			// is beforeAnimate a function
+			isOnComplete: false				// is isOnComplete a function
 		};
 
 		if (settings) $.extend(config, settings);
@@ -39,6 +47,13 @@
 			vars.itemCount = hero.find('li').length;
 			vars.itemWidth = hero.width();
 			vars.totalItemWidth = vars.itemWidth * vars.itemCount;
+
+			// make sure the hiddenControlsOpacity is > 0 and < 1
+			if (config.hiddenControlsOpacity > 1) {
+				config.hiddenControlsOpacity = 1;
+			} else if (config.hiddenControlsOpacity < 0) {
+				config.hiddenControlsOpacity = 0;
+			}
 
 			// set ul width
 			$heroUl.css({
@@ -57,23 +72,31 @@
 				$('<a class="arrowPrev" href="#">Previous</a>')
 					.bind('click', function(e) {
 						e.preventDefault();
-
 						animatePrev(hero);
-					}).appendTo(hero.find('.heroMask'));
+					})
+					.css('opacity', config.hiddenControlsOpacity)
+					.appendTo(hero.find('.heroMask'));
 
 				$('<a class="arrowNext" href="#">Next</a>')
 					.bind('click', function(e) {
 						e.preventDefault();
-
 						animateNext(hero, 1);
-					}).appendTo(hero.find('.heroMask'));
+					})
+					.css('opacity', config.hiddenControlsOpacity)
+					.appendTo(hero.find('.heroMask'));
 				
-				// add fade effect
-				hero.find('.heroMask').mouseenter(function() {
-					hero.find('.arrowPrev, .arrowNext').stop(true, true).fadeIn();
-				}).mouseleave(function() {
-					hero.find('.arrowPrev, .arrowNext').stop(true, true).fadeOut();
-				});
+				// add fade effect if needed
+				if (config.hiddenControlsOpacity < 1) {
+					hero.find('.heroMask').mouseenter(function() {
+						hero.find('.arrowPrev, .arrowNext').stop(true, true).animate({
+							opacity: 1
+						});
+					}).mouseleave(function() {
+						hero.find('.arrowPrev, .arrowNext').stop(true, true).animate({
+							opacity: config.hiddenControlsOpacity
+						});
+					});
+				}
 			}
 			
 			// set up direct nav
@@ -81,7 +104,7 @@
 				$directNav = $('<div class="directNav"></div>');
 				
 				for (i = 0; i < vars.itemCount; i++) {
-					$('<a href="#" title="">&#160;</a>')
+					$('<a href="#" title=""></a>')
 						.bind('click', function(e) {
 							e.preventDefault();
 							animateDirect(hero, $(this).index());
@@ -105,10 +128,23 @@
 					vars.cInterval = window.setInterval(function() { animateNext(hero, 1); }, config.scrollInterval);
 				});
 			}
+
+			// set up callbacks
+			if (typeof config.beforeAnimate === 'function') {
+				vars.isBeforeAnimate = true;
+			}
+			if (typeof config.onComplete === 'function') {
+				vars.isOnComplete = true;
+			}
 		}
 		
 		function animatePrev(hero) {
 			var $heroUl = hero.find('ul');
+
+			// fire beforeAnimate
+			if (vars.isBeforeAnimate) {
+				config.beforeAnimate(hero);
+			}
 
 			if (!config.circular) {
 				if (vars.offset === 0) {
@@ -119,7 +155,12 @@
 
 				$heroUl.stop(false, false).animate({
 					marginLeft: vars.offset + 'px'
-				}, config.animateSpeed, config.easing);
+				}, config.animateSpeed, config.easing, function() {
+					// fire onComplete
+					if (vars.isOnComplete) {
+						config.onComplete(hero);
+					}
+				});
 			} else {
 				// animate player
 				$heroUl.stop(false, false).animate({
@@ -130,6 +171,11 @@
 
 					// change css margin left to one item
 					$heroUl.css('margin-left', '-' + vars.itemWidth + 'px');
+
+					// fire onComplete
+					if (vars.isOnComplete) {
+						config.onComplete(hero);
+					}
 				});
 			}
 			
@@ -147,6 +193,11 @@
 		function animateNext(hero, moves) {
 			var $heroUl = hero.find('ul');
 
+			// fire beforeAnimate
+			if (vars.isBeforeAnimate) {
+				config.beforeAnimate(hero);
+			}
+
 			if (!config.circular) {
 				if (vars.offset * -1 < (vars.totalItemWidth - vars.itemWidth))
 					vars.offset = vars.offset - vars.itemWidth;
@@ -155,7 +206,12 @@
 			
 				$heroUl.stop(false, false).animate({
 					marginLeft: vars.offset + 'px'
-				}, config.animateSpeed, config.easing);
+				}, config.animateSpeed, config.easing, function() {
+					// fire onComplete
+					if (vars.isOnComplete) {
+						config.onComplete(hero);
+					}
+				});
 			} else {
 				// animate player
 				$heroUl.stop(false, false).animate({
@@ -168,6 +224,11 @@
 					
 					// change css margin left to one item
 					$heroUl.css('margin-left', '-' + vars.itemWidth + 'px');
+
+					// fire onComplete
+					if (vars.isOnComplete) {
+						config.onComplete(hero);
+					}
 				});
 			}
 			
@@ -185,6 +246,11 @@
 			var moveTo,
 				$heroUl = hero.find('ul');
 
+			// fire beforeAnimate
+			if (vars.isBeforeAnimate) {
+				config.beforeAnimate(hero);
+			}
+
 			if (!config.circular) {
 				if (item === 0) {
 					vars.offset = 0;
@@ -194,7 +260,12 @@
 
 				$heroUl.stop(false, false).animate({
 					marginLeft: vars.offset + 'px'
-				}, config.animateSpeed, config.easing);
+				}, config.animateSpeed, config.easing, function() {
+					// fire onComplete
+					if (vars.isOnComplete) {
+						config.onComplete(hero);
+					}
+				});
 
 				// set currentItem
 				vars.currentItem = item;

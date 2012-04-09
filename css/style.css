@@ -1,22 +1,18 @@
 /**
-*	@author		Jasal Vadgama - http://www.blacklabelcreative.com/
-*	@version	0.1
-*	@media		screen
+* Featured Content/Hero Player
 *
-*	@info		Featured Content/Hero Player
+* @version	0.3
+* @author	Jasal Vadgama - http://blacklabelcreative.com/
+* @media	screen
 **/
 
 body {
 	padding: 20px;
-	font-family: Georgia, Times, "Times New Roman", serif;
-	font-size: 14px;
-	line-height: 1.2em;
+	font: 14px/1.2em Georgia, Times, "Times New Roman", serif;
 }
 h1, h2, h3 {
 	padding-bottom: 20px;
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 20px;
-	line-height: 1em;
+	font: 20px/1em Helvetica, Arial, sans-serif;
 }
 h2 {
 	font-size: 18px;
@@ -32,7 +28,6 @@ h3 {
 .heroPlayer {
 	position: relative;
 	width: 500px;
-	overflow: hidden;
 }
 .heroPlayer li {
 	float: left;
@@ -46,23 +41,27 @@ h3 {
 .heroMask {
 	overflow: hidden;
 }
-a.arrowPrev, a.arrowNext {
-	display: none;
+a.arrowPrev,
+a.arrowNext {
 	position: absolute;
 	top: 50%;
 	margin-top: -25px;
 	width: 50px;
 	height: 50px;
+	background: #fff;
 	background: rgba(255, 255, 255, 0.5);
-	border: 1px solid transparent;
 	text-indent: -999em;
 }
 a.arrowPrev {
 	left: 0;
+	-moz-border-radius: 0 10px 10px 0;
+	-webkit-border-radius: 0 10px 10px 0;
 	border-radius: 0 10px 10px 0;
 }
 a.arrowNext {
 	right: 0;
+	-moz-border-radius: 10px 0 0 10px;
+	-webkit-border-radius: 10px 0 0 10px;
 	border-radius: 10px 0 0 10px;
 }
 .directNav {
@@ -74,9 +73,11 @@ a.arrowNext {
 	margin-left: 10px;
 	width: 20px;
 	height: 20px;
+	background: #333;
 	background: rgba(0, 0, 0, 0.7);
-	text-indent: -999em;
 }
-.directNav a:hover, .directNav a:focus, .directNav .active {
+.directNav a:hover,
+.directNav a:focus,
+.directNav .active {
 	background: #000;
 }

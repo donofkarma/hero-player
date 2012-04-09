@@ -17,37 +17,35 @@
 </head>
 <body>
 	<h1>Featured Content/Hero Player Demo</h1>
-	
-	<section>
-		<article id="heroPlayer" class="heroPlayer">
-			<ul>
-				<li>
-					<div>
-						<h3 class="heroTitle">Panel 1</h3>
-						<p>Lorem ipsizzle dolizzle fo shizzle amet, shizznit adipiscing elit. sapien velizzle, bling bling gangster, suscipizzle away.</p>
-					</div>
-				</li>
-				<li>
-					<div>
-						<h3 class="heroTitle">Panel 2</h3>
-						<p>Lorem ipsizzle dolizzle fo shizzle amet, shizznit adipiscing elit. sapien velizzle, bling bling gangster, suscipizzle away.</p>
-					</div>
-				</li>
-				<li>
-					<div>
-						<h3 class="heroTitle">Panel 3</h3>
-						<p>Lorem ipsizzle dolizzle fo shizzle amet, shizznit adipiscing elit. sapien velizzle, bling bling gangster, suscipizzle away.</p>
-					</div>
-				</li>
-				<li>
-					<div>
-						<h3 class="heroTitle">Panel 4</h3>
-						<p>Lorem ipsizzle dolizzle fo shizzle amet, shizznit adipiscing elit. sapien velizzle, bling bling gangster, suscipizzle away.</p>
-					</div>
-				</li>
-			</ul>
-		</article>
-	</section>
+
+	<div id="heroPlayer" class="heroPlayer">
+		<ul>
+			<li>
+				<div>
+					<h3>Panel 1</h3>
+					<p>Lorem ipsizzle dolizzle fo shizzle amet, shizznit adipiscing elit. sapien velizzle, bling bling gangster, suscipizzle away.</p>
+				</div>
+			</li>
+			<li>
+				<div>
+					<h3>Panel 2</h3>
+					<p>Lorem ipsizzle dolizzle fo shizzle amet, shizznit adipiscing elit. sapien velizzle, bling bling gangster, suscipizzle away.</p>
+				</div>
+			</li>
+			<li>
+				<div>
+					<h3>Panel 3</h3>
+					<p>Lorem ipsizzle dolizzle fo shizzle amet, shizznit adipiscing elit. sapien velizzle, bling bling gangster, suscipizzle away.</p>
+				</div>
+			</li>
+			<li>
+				<div>
+					<h3>Panel 4</h3>
+					<p>Lorem ipsizzle dolizzle fo shizzle amet, shizznit adipiscing elit. sapien velizzle, bling bling gangster, suscipizzle away.</p>
+				</div>
+			</li>
+		</ul>
+	</div>
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="js/jquery.easing.1.3.js"></script>
@@ -61,7 +59,13 @@
 				easing: "easeInOutCubic",
 				scrollInterval: 5000,
 				showControls: true,
-				showNav: true
+				showNav: true,
+				beforeAnimate: function() {
+					alert('before');
+				},
+				onComplete: function() {
+					alert('after');
+				}
 			});
 		});
 	</script>

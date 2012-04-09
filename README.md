@@ -6,8 +6,8 @@ A small project that turns all of the slightly different versions of the same fe
 To-do
 ---------------------
 
+- Add images for backgrounds
 - Review and re-write code as necessary
-- Add callbacks for before and after animate
 - Add touch (swipe) interaction
 - Fix jsLint errors
 - Write documentation
@@ -15,9 +15,14 @@ To-do
 Changelog
 ---------------------
 
-### 0.1
-- Adding initial merged code to the project
-- Basic jQuery plugin layout
+### 0.3
+- Added beforeAnimate
+- Added onComplete
+
+### 0.3
+- Changed the previous/next fading to work directly on opacity so the controls can be partially hidden
+- Removed extra markup around the player
+- Adding CSS fallbacks for border-radius and rgba colour
 
 ### 0.2
 - Removing double jQuery selection
@@ -27,6 +32,10 @@ Changelog
 - Changing event syntax
 - Changing string syntax
 - Small jsLint fix
+
+### 0.1
+- Adding initial merged code to the project
+- Basic jQuery plugin layout
 
 License
 ---------------------
