@@ -6,7 +6,6 @@ A small project that turns all of the slightly different versions of the same fe
 To-do
 ---------------------
 
-- Add images for backgrounds
 - Review and re-write code as necessary
 - Add touch (swipe) interaction
 - Fix jsLint errors
