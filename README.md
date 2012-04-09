@@ -18,6 +18,8 @@ Changelog
 ### 0.4
 - Added beforeAnimate
 - Added onComplete
+- Added onHeroLoad
+- Added image background
 
 ### 0.3
 - Changed the previous/next fading to work directly on opacity so the controls can be partially hidden
@@ -41,3 +43,5 @@ License
 ---------------------
 
 This work may be freely distributed under the MIT license.
+
+All photos copyright John Turner - http://stickmanphotographic.com/

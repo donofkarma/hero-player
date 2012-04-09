@@ -22,8 +22,9 @@
 			showNav: false,					// show the quick nav menu for the main items
 
 			// CALLBACKS
+			onHeroLoad: '',					// function to call once the player has loaded
 			beforeAnimate: '',				// function to call before animation
-			onComplete: ''				// function to call after animation completion
+			onComplete: ''					// function to call after animation completion
 		};
 
 		var vars = {
@@ -34,7 +35,7 @@
 			offset: 0,						// the current margin-left for non-circular players
 			totalItemWidth: 0,				// total width of items
 			isBeforeAnimate: false,			// is beforeAnimate a function
-			isOnComplete: false				// is isOnComplete a function
+			isOnComplete: false				// is OnComplete a function
 		};
 
 		if (settings) $.extend(config, settings);
@@ -104,18 +105,16 @@
 				$directNav = $('<div class="directNav"></div>');
 				
 				for (i = 0; i < vars.itemCount; i++) {
-					$('<a href="#" title=""></a>')
-						.bind('click', function(e) {
-							e.preventDefault();
-							animateDirect(hero, $(this).index());
-							hero.find('a.active').removeClass('active');
-							$(this).addClass('active');
-						})
-						.appendTo($directNav);
+					$('<a href="#" title=""></a>').appendTo($directNav);
 				}
 
+				$directNav.find('a').bind('click', function(e) {
+					e.preventDefault();
+					animateDirect(hero, $(this).index());
+				});
+
+				$directNav.find('a:first').addClass('active');
 				$directNav.appendTo(hero);
-				hero.find('.directNav a:eq(' + vars.currentItem + ')').addClass('active');
 			}
 			
 			// add auto scroll
@@ -130,6 +129,9 @@
 			}
 
 			// set up callbacks
+			if (typeof config.onHeroLoad === 'function') {
+				config.onHeroLoad(hero);
+			}
 			if (typeof config.beforeAnimate === 'function') {
 				vars.isBeforeAnimate = true;
 			}
