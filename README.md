@@ -15,7 +15,7 @@ To-do
 Changelog
 ---------------------
 
-### 0.3
+### 0.4
 - Added beforeAnimate
 - Added onComplete
 
