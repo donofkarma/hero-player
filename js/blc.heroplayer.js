@@ -194,7 +194,7 @@
 				}, this.options.animateSpeed, this.options.easing, function() {
 					// fire onComplete
 					if (vars.isOnComplete) {
-						self.options.onComplete(this.$element);
+						self.options.onComplete(self.$element);
 					}
 				});
 			} else {
@@ -246,7 +246,7 @@
 				}, this.options.animateSpeed, this.options.easing, function() {
 					// fire onComplete
 					if (vars.isOnComplete) {
-						this.options.onComplete(this.$element);
+						self.options.onComplete(self.$element);
 					}
 				});
 			} else {
