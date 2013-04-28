@@ -74,7 +74,8 @@
 			// you can add more functions like the one below and
 			// call them like so: this.yourOtherFunction(this.element, this.options).
 
-			var $heroUl = this.$element.find('ul'),
+			var self = this,
+				$heroUl = this.$element.find('ul'),
 				$directNav;
 
 			// set up vars
@@ -152,12 +153,12 @@
 
 			// add auto scroll
 			if (this.options.autoScroll) {
-				vars.cInterval = window.setInterval(function() { animateNext(this, 1); }, this.options.scrollInterval);
+				vars.cInterval = window.setInterval(function() { self.animateNext(1); }, self.options.scrollInterval);
 
 				this.$element.on('mouseenter', function() {
 					window.clearInterval(vars.cInterval);
 				}).on('mouseleave', function() {
-					vars.cInterval = window.setInterval(function() { animateNext(this, 1); }, this.options.scrollInterval);
+					vars.cInterval = window.setInterval(function() { self.animateNext(1); }, self.options.scrollInterval);
 				});
 			}
 
