@@ -40,6 +40,7 @@ h3 {
 	position: absolute;
 	bottom: 0;
 	padding: 15px;
+	background: #000;
 	background: rgba(255, 255, 255, 0.75);
 	color: #000;
 }
@@ -59,7 +60,11 @@ a.arrowNext {
 	height: 50px;
 	background: #fff;
 	background: rgba(255, 255, 255, 0.5);
-	text-indent: -999em;
+
+	/* image replacement */
+	overflow: hidden;
+	text-indent: 100%;
+	white-space: no-wrap;
 }
 a.arrowPrev {
 	left: 0;

@@ -14,7 +14,7 @@ To-do
 Changelog
 ---------------------
 
-### 0.4
+### 0.3.1
 - Added beforeAnimate
 - Added onComplete
 - Added onHeroLoad
