@@ -7,12 +7,14 @@ To-do
 ---------------------
 
 - Review and re-write code as necessary
-- Add touch (swipe) interaction
-- Fix jsLint errors
 - Write documentation
 
 Changelog
 ---------------------
+
+### 0.4
+- New plugin structure
+- Adding swipe events
 
 ### 0.3.1
 - Added beforeAnimate
