@@ -62,6 +62,7 @@
 		this.options = $.extend({}, defaults, options);
 		this._defaults = defaults;
 		this._name = pluginName;
+		this.hasTouch = ('ontouchstart' in window ? true : false);
 		this.init();
 	}
 
@@ -105,33 +106,40 @@
 			// set up controls
 			if (this.options.showControls) {
 				$('<a class="arrowPrev" href="#">Previous</a>')
-					.on('click', { scope: this }, function(e) {
+					.on('click', function(e) {
 						e.preventDefault();
-						e.data.scope.animatePrev();
+						self.animatePrev();
 					})
 					.css('opacity', this.options.hiddenControlsOpacity)
 					.appendTo(this.$element.find('.heroMask'));
 
 				$('<a class="arrowNext" href="#">Next</a>')
-					.on('click', { scope: this }, function(e) {
+					.on('click', function(e) {
 						e.preventDefault();
-						e.data.scope.animateNext(1);
+						self.animateNext(1);
 					})
 					.css('opacity', this.options.hiddenControlsOpacity)
 					.appendTo(this.$element.find('.heroMask'));
 
 				// add fade effect if needed
 				if (this.options.hiddenControlsOpacity < 1) {
-					this.$element.find('.heroMask').on('mouseenter', { element: this.$element }, function(e) {
-						e.data.element.find('.arrowPrev, .arrowNext').stop(true, true).animate({
+					this.$element.find('.heroMask').on('mouseenter', function(e) {
+						self.$element.find('.arrowPrev, .arrowNext').stop(true, true).animate({
 							opacity: 1
 						});
-					}).on('mouseleave', { element: this.$element, opacity: this.options.hiddenControlsOpacity }, function(e) {
-						e.data.element.find('.arrowPrev, .arrowNext').stop(true, true).animate({
-							opacity: e.data.opacity
+					}).on('mouseleave', function(e) {
+						self.$element.find('.arrowPrev, .arrowNext').stop(true, true).animate({
+							opacity: self.options.opacity
 						});
 					});
 				}
+
+				// add swipe events
+				this.$element.find('.heroMask').hammer().on('swipeleft', function() {
+					self.animateNext(1);
+				}).on('swiperight', function() {
+					self.animatePrev(1);
+				});
 			}
 
 			// set up direct nav
@@ -142,9 +150,9 @@
 					$('<a href="#" title=""></a>').appendTo($directNav);
 				}
 
-				$directNav.find('a').bind('click', { scope: this }, function(e) {
+				$directNav.find('a').bind('click', function(e) {
 					e.preventDefault();
-					e.data.scope.animateDirect($(this).index());
+					self.animateDirect($(this).index());
 				});
 
 				$directNav.find('a:first').addClass('active');
